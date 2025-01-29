@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td{
+            border: 1px solid;
+        }
+        .orange{
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <table></table>
+    <button onclick="foo()">Добавить число</button>
+
+    <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        const numbers = [];
+        let index = 0;
+
+        function initializeTable() {
+            for (let i = 0; i < 30; i++) {
+                numbers.push(getRandomInt(0, 99));
+            }
+
+            const tableContainer = document.querySelector("table");
+            let idx = 0;
+
+            for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+                const tr = document.createElement("tr");
+                for (let colIndex = 0; colIndex < 5; colIndex++) {
+                    const td = document.createElement("td");
+                    td.textContent = numbers[idx];
+                    if (numbers[idx] >= 50) {
+                        td.classList.add("orange");
+                    }
+                    tr.append(td);
+                    idx++;
+                }
+                tableContainer.append(tr);
+            }
+        }
+
+        function foo() {
+           
+            const newNumber = getRandomInt(0, 99);
+            numbers.push(newNumber);
+
+         
+            const tableContainer = document.querySelector("table");
+            let lastRow = tableContainer.rows[tableContainer.rows.length - 1];
+
+            if (lastRow.cells.length < 5) {
+                const td = document.createElement("td");
+                td.textContent = newNumber;
+                if (newNumber >= 50) {
+                    td.classList.add("orange");
+                }
+                lastRow.append(td);
+            } else {
+               
+                const tr = document.createElement("tr");
+                const td = document.createElement("td");
+                td.textContent = newNumber;
+                if (newNumber >= 50) {
+                    td.classList.add("orange");
+                }
+                tr.append(td);
+                tableContainer.append(tr);
+            }
+        }
+
+        
+        initializeTable();
+    </script>
+</body>
+</html>
